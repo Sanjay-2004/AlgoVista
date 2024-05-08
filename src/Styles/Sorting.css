@@ -1,0 +1,14 @@
+.bar-sorted {
+  background-color: #b979ec;
+}
+.bar-swap {
+  background-color: #57a846;
+}
+.bar-compare {
+  background-color: red;
+}
+
+.bar {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
