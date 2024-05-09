@@ -4,6 +4,7 @@ import mergeSort from './Algorithms/mergesort';
 import '../Styles/Sorting.css'
 import { motion } from 'framer-motion';
 import bubbleSort from './Algorithms/bubbleSort';
+import quickSort from './Algorithms/quickSort';
 
 const springAnim = {
     type: "spring",
@@ -76,15 +77,22 @@ export default function Sorting() {
                 results = bubbleSort(arr);
                 // console.log(results)
             }
+            else if (algoName === 'Quick Sort') {
+                results = quickSort(arr);
+                // console.log(results)
+            }
+
             // console.log(speed)
+            setArr(results[0])
             for (let i = 0; i < results.length; i++) {
                 await new Promise(resolve =>
                     setTimeout(() => {
                         // console.log(Math.pow(1.9, speed))
                         // console.log(800 - Math.pow(1.9, speed))
+                        if (i == 0) console.log(results[i])
                         setArr(results[i]);
                         resolve();
-                    }, (800 - Math.pow(1.85, speed)))
+                    }, (800 - Math.pow(1.87, speed)))
                 );
             }
             setIsSorting(false);
