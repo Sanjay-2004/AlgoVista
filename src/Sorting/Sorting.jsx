@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import mergeSort from './Algorithms/mergesort';
 import '../Styles/Sorting.css'
 import { motion } from 'framer-motion';
+import bubbleSort from './Algorithms/bubbleSort';
 
 const springAnim = {
     type: "spring",
@@ -24,7 +25,7 @@ export default function Sorting() {
     const [algo, setAlgo] = useState(false);
     const [algoNotSelected, setAlgoNotSelected] = useState(false);
     const [algoName, setAlgoName] = useState('Algorithms');
-    const [speed, setSpeed] = useState(50);
+    const [speed, setSpeed] = useState(5);
     const [arraySize, setArraySize] = useState(15);
     const [arr, setArr] = useState([]);
     const [isSorting, setIsSorting] = useState(false);
@@ -60,8 +61,6 @@ export default function Sorting() {
 
     const sortArray = async () => {
 
-
-        console.log((111 - speed + 1))
         if (algoName === 'Algorithms') {
             setAlgoNotSelected(true);
             setTimeout(() => {
@@ -73,13 +72,19 @@ export default function Sorting() {
             if (algoName === 'Merge Sort') {
                 results = mergeSort(arr);
             }
+            else if (algoName === 'Bubble Sort') {
+                results = bubbleSort(arr);
+                // console.log(results)
+            }
             // console.log(speed)
             for (let i = 0; i < results.length; i++) {
                 await new Promise(resolve =>
                     setTimeout(() => {
+                        // console.log(Math.pow(1.9, speed))
+                        // console.log(800 - Math.pow(1.9, speed))
                         setArr(results[i]);
                         resolve();
-                    }, i * (111 - speed + 1))
+                    }, (800 - Math.pow(1.85, speed)))
                 );
             }
             setIsSorting(false);
@@ -143,7 +148,7 @@ export default function Sorting() {
                                 <div className={`md:absolute md:top-full md:right-0 md:w-[135px] md:bg-white md:shadow-md md:mt-2 ${controls ? 'block' : 'hidden'} md:flex md:flex-col gap-2 md:items-center`}>
                                     <div className='flex flex-col items-center mt-2 md:mt-0'>
                                         <label className='font-montserrat text-gray-700 text-sm'>Speed</label>
-                                        <input onChange={handleSpeedChange} type="range" min="1" max="100" value={speed} className='w-[120px]' />
+                                        <input onChange={handleSpeedChange} type="range" min="0" max="10" value={speed} className='w-[120px]' />
                                     </div>
                                     <div className='flex flex-col items-center mt-2 mb-3 md:mt-0'>
                                         <label className='font-montserrat text-gray-700 text-sm'>Array Size</label>
@@ -159,7 +164,7 @@ export default function Sorting() {
                 </div>
             </nav>
             <div className='mt-[65px]'></div>
-            <div className='flex justify-center items-start mx-[50px]'>
+            <div className='flex justify-center items-end mx-[50px]'>
                 {arr.map((val, idx) => (
                     <motion.div layout transition={springAnim} className={`${val.class} m-1 text-white text-center font-bold rounded-sm`} key={val.id} id={val.id} style={{ height: `${val.value * 3}px`, width: `40px`, order: idx }}>{val.value}
                     </motion.div>
