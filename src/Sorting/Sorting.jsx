@@ -5,6 +5,8 @@ import '../Styles/Sorting.css'
 import { motion } from 'framer-motion';
 import bubbleSort from './Algorithms/bubbleSort';
 import quickSort from './Algorithms/quickSort';
+import insertionSort from './Algorithms/insertionSort';
+import selectionSort from './Algorithms/selectionSort';
 
 const springAnim = {
     type: "spring",
@@ -20,6 +22,29 @@ export default function Sorting() {
         { name: "Selection Sort", key: "selectionSort" },
         { name: "Insertion Sort", key: "insertionSort" },
     ];
+
+    const sortingComplexities = {
+        "Bubble Sort": {
+            time: "O(n^2)",
+            space: "O(1)"
+        },
+        "Insertion Sort": {
+            time: "O(n^2)",
+            space: "O(1)"
+        },
+        "Selection Sort": {
+            time: "O(n^2)",
+            space: "O(1)"
+        },
+        "Merge Sort": {
+            time: "O(n log n)",
+            space: "O(n)"
+        },
+        "Quick Sort": {
+            time: "O(n log n)",
+            space: "O(log n)"
+        }
+    };
 
     const [open, setOpen] = useState(false);
     const [controls, setControls] = useState(false);
@@ -70,16 +95,28 @@ export default function Sorting() {
         } else {
             setIsSorting(true);
             let results;
+            let base = 0;
             if (algoName === 'Merge Sort') {
+                base = 1.85;
                 results = mergeSort(arr);
             }
             else if (algoName === 'Bubble Sort') {
+                base = 1.9;
                 results = bubbleSort(arr);
                 // console.log(results)
             }
             else if (algoName === 'Quick Sort') {
+                base = 1.87;
                 results = quickSort(arr);
                 // console.log(results)
+            }
+            else if (algoName === 'Insertion Sort') {
+                base = 1.9;
+                results = insertionSort(arr);
+            }
+            else if (algoName === 'Selection Sort') {
+                base = 1.9;
+                results = selectionSort(arr);
             }
 
             // console.log(speed)
@@ -92,7 +129,7 @@ export default function Sorting() {
                         if (i == 0) console.log(results[i])
                         setArr(results[i]);
                         resolve();
-                    }, (800 - Math.pow(1.87, speed)))
+                    }, (800 - Math.pow(base, speed)))
                 );
             }
             setIsSorting(false);
@@ -133,6 +170,7 @@ export default function Sorting() {
                         </li>)}
                         <li className="md:ml-8 md:my-0 my-5 ml-5 text-xl">
                             {!isSorting && (<button onClick={createArray} className='font-montserrat text-gray-700 cursor-pointer hover:text-gray-400 duration-300'>Randomise</button>)}
+                            {isSorting && (<p className='font-montserrat text-gray-700 italic'>TC {sortingComplexities[algoName].time} SC: {sortingComplexities[algoName].space}</p>)}
                         </li>
                         <li onClick={() => setAlgo((prev) => !prev)} className="md:ml-8 md:my-0 my-5 ml-5 text-xl flex md:flex-col gap-5 relative items-start">
                             <button className='px-3 py-1 flex items-center rounded-lg font-montserrat text-gray-700 cursor-pointer hover:text-gray-400 duration-300'>
@@ -172,14 +210,11 @@ export default function Sorting() {
                 </div>
             </nav>
             <div className='mt-[65px]'></div>
-            <div className='flex justify-center items-end mx-[50px]'>
+            <div className='flex justify-center items-end mx-[50px] h-[600px]'>
                 {arr.map((val, idx) => (
                     <motion.div layout transition={springAnim} className={`${val.class} m-1 text-white text-center font-bold rounded-sm`} key={val.id} id={val.id} style={{ height: `${val.value * 3}px`, width: `40px`, order: idx }}>{val.value}
                     </motion.div>
                 ))}
-            </div>
-            <div className='font-montserrat mt-3 text-xl'>
-                Time Complexity: O(n log n)
             </div>
 
         </>
