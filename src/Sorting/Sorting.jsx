@@ -101,7 +101,7 @@ export default function Sorting() {
                 results = mergeSort(arr);
             }
             else if (algoName === 'Bubble Sort') {
-                base = 1.9;
+                base = 1.925;
                 results = bubbleSort(arr);
                 // console.log(results)
             }
