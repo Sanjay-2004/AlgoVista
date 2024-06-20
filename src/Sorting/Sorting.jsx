@@ -216,6 +216,11 @@ export default function Sorting() {
                     </motion.div>
                 ))}
             </div>
+            <div className="flex justify-end gap-5 px-10 py-3 fixed bottom-0 w-full bg-transparent border-t border-gray-400 z-50">
+                <p className='font-montserrat text-gray-700'>Created By</p>
+                <a href='https://github.com/Sanjay-2004' target='_blank' className='font-montserrat text-gray-700 cursor-pointer hover:text-gray-950 duration-300 text-xl font-bold hover:underline hover:underline-offset-3'>Sanjay Agamamidi</a>
+            </div>
+
 
         </>
     );
